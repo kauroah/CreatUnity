@@ -1,0 +1,3 @@
+import {Eyebrow} from '@/components/chrome';import {PeopleDirectory} from '@/components/people-directory';import {publishedCreators} from '@/lib/supabase/creators';
+export const dynamic='force-dynamic';
+export default async function People(){const {creators,error}=await publishedCreators(100);return <main className="listing-page wrap"><Eyebrow>PEOPLE / THE CASTING ARCHIVE</Eyebrow><h1>WHO ARE YOU<br/>LOOKING FOR?</h1><p className="listing-intro">Find a creative by name, role, city and practice.</p>{error?<p className="auth-alert" role="alert">Unable to load dossiers. Please try again later.</p>:<PeopleDirectory creators={creators}/>}</main>}

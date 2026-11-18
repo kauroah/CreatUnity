@@ -1,0 +1,3 @@
+import {createClient} from '@/lib/supabase/server';import {PageHeading,ArchiveGrid} from '@/components/phase5';
+export const dynamic='force-dynamic';
+export default async function Education(){const sb=await createClient();const {data,error}=await sb.from('workshops').select('slug,title,summary,city,starts_at,price_rub,cover_url').eq('is_published',true).order('starts_at');return <div className="wrap phase5-page"><PageHeading label="EDUCATION / LEARN BY DOING" title="LEARN FROM THE PEOPLE DOING IT." sub="Workshops, masterclasses, portfolio reviews and courses."/>{error?<p role="alert">Unable to load education.</p>:<ArchiveGrid kind="education" items={data||[]}/>}</div>}

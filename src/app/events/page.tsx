@@ -1,0 +1,3 @@
+import {createClient} from '@/lib/supabase/server';import {PageHeading,ArchiveGrid} from '@/components/phase5';
+export const dynamic='force-dynamic';
+export default async function Events(){const sb=await createClient();const {data,error}=await sb.from('fashion_events').select('slug,title,summary,city,starts_at,price_rub,cover_url').eq('is_published',true).order('starts_at');return <div className="wrap phase5-page"><PageHeading label="EVENTS / OFFLINE RECORDS" title="BE THERE." sub="The scene has an address."/>{error?<p role="alert">Unable to load events.</p>:<ArchiveGrid kind="events" items={data||[]}/>}</div>}

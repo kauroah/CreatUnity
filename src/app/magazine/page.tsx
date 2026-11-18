@@ -1,0 +1,3 @@
+import {createClient} from '@/lib/supabase/server';import {PageHeading,ArchiveGrid} from '@/components/phase5';
+export const dynamic='force-dynamic';
+export default async function Magazine(){const sb=await createClient();const {data,error}=await sb.from('magazine_articles').select('slug,title,excerpt,category,cover_url').eq('is_published',true).order('published_at',{ascending:false});return <div className="wrap phase5-page"><PageHeading label="MAGAZINE / VOL. 001 / AUTUMN 2026" title="THE NEW COLLECTIVE." sub="INTERVIEWS / VISUAL ESSAYS / BACKSTAGE / CULTURE"/>{error?<p role="alert">Could not load the magazine.</p>:<ArchiveGrid items={data||[]} kind="magazine"/>}</div>}

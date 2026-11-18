@@ -1,0 +1,3 @@
+ 'use server';
+import {createClient} from '@/lib/supabase/server';import {redirect} from 'next/navigation';import {revalidatePath} from 'next/cache';import {getCurrentUser} from '@/lib/auth';
+export async function setDossierVisibility(form:FormData){const user=await getCurrentUser();if(!user)redirect('/login');const sb=await createClient();const publish=form.get('publish')==='true';const {error}=await sb.from('profiles').update({is_published:publish}).eq('id',user.id);if(error)redirect('/account?publish_error='+encodeURIComponent(error.message));revalidatePath('/people');revalidatePath('/account');revalidatePath('/');revalidatePath('/people/'+user.id);redirect('/account?visibility='+ (publish?'published':'private'));}

@@ -1,0 +1,7 @@
+'use client';
+import {useState} from 'react';import {DialogShell} from './dialog-shell';
+export function ShareWorkDialog({path,title}:{path:string;title:string}){
+ const [open,setOpen]=useState(false);const [copied,setCopied]=useState(false);const [error,setError]=useState('');
+ async function copy(){try{await navigator.clipboard.writeText(window.location.origin+path);setCopied(true);setError('')}catch{setError('Clipboard access failed. Select and copy the link manually.')}}
+ return <><button type="button" className="arrow-link arrow-dark" onClick={()=>{setCopied(false);setOpen(true)}}>SHARE THIS FILE ↗</button><DialogShell open={open} onClose={()=>setOpen(false)} tone={copied?'pink':'paper'}><div className="cu-dialog-eyebrow">PUBLIC FILE / {title}</div><h2 className="cu-dialog-title">{copied?'LINK COPIED.':'SHARE THIS FILE.'}</h2><p className="cu-dialog-lead">{copied?'The public link is ready to share. Private messages and drafts are not included.':'Only this public work page will be shared.'}</p><label className="cu-share-field">PUBLIC LINK<input readOnly value={typeof window==='undefined'?path:window.location.origin+path} onFocus={e=>e.currentTarget.select()}/></label>{error&&<p role="alert" className="phase-error">{error}</p>}<button className="cu-dialog-primary" type="button" onClick={copied?()=>setOpen(false):copy}><span>{copied?'BACK TO WORK':'COPY LINK'}</span><span>↗</span></button></DialogShell></>
+}

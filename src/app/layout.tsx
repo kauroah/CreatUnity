@@ -1,0 +1,3 @@
+import type {Metadata} from 'next';import './globals.css';import {Header,Footer} from '@/components/chrome';
+export const metadata:Metadata={title:{default:'CREATUNITY — Fashion is Made Together',template:'%s | CREATUNITY'},description:'A creative bureau for fashion collaborators, work, culture and ideas.',openGraph:{title:'CREATUNITY — Fashion is Made Together',description:'Fashion is made together.',images:[{url:'/brand/creatunity-logo.png',width:500,height:145}]},robots:{index:true,follow:true},...(process.env.NEXT_PUBLIC_SITE_URL?{metadataBase:new URL(process.env.NEXT_PUBLIC_SITE_URL)}:{})};
+export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en"><body><Header/><main>{children}</main><Footer/></body></html>}
